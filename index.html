@@ -873,6 +873,7 @@ En attendant, n'hésitez pas à consulter les offres exclusives que ${d.pro_nom}
     to_email: d.email,
     to_name:  d.prenom,
     message:  msgClient,
+    subject:  'Votre demande de rendez-vous — Courtalian',
   };
 
   try {
@@ -1011,8 +1012,8 @@ async function submitParrainage(e) {
   var msgParrain = 'Votre parrainage a bien été enregistré. Merci pour votre confiance !\n\nNous allons contacter ' + d.filleul_prenom + ' ' + d.filleul_nom + ' très prochainement pour lui présenter nos services.\n\nSi la mise en relation aboutit à une solution signée, vous recevrez une récompense de 50€. Nous vous tiendrons informé à chaque étape.\n\nCordialement,\nL\'Équipe Courtalian';
   var msgFilleul = d.parrain_prenom + ' ' + d.parrain_nom + ' a pensé à vous et vous a recommandé auprès de Courtalian.\n\nCourtalian met en relation des particuliers avec des conseillers en gestion de patrimoine et courtiers en crédit sélectionnés, avec des conditions négociées en exclusivité.\n\nUn conseiller va vous contacter très prochainement pour un premier échange sans engagement.\n\nCordialement,\nL\'Équipe Courtalian';
 
-  var paramsParrain = { to_email: d.parrain_email, to_name: d.parrain_prenom, email: d.parrain_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgParrain, cc_admin: EJS.admin };
-  var paramsFilleul = { to_email: d.filleul_email, to_name: d.filleul_prenom, email: d.filleul_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgFilleul, cc_admin: EJS.admin };
+  var paramsParrain = { to_email: d.parrain_email, to_name: d.parrain_prenom, email: d.parrain_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgParrain, subject: 'Votre parrainage a bien été enregistré — Courtalian', cc_admin: EJS.admin };
+  var paramsFilleul = { to_email: d.filleul_email, to_name: d.filleul_prenom, email: d.filleul_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgFilleul, subject: 'Vous avez été recommandé — Courtalian', cc_admin: EJS.admin };
 
   try {
     await emailjs.send(EJS.service, EJS.tpl_parrainage, paramsParrain);
@@ -1050,6 +1051,4 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 </body>
-</html>
-
 </html>
