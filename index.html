@@ -414,7 +414,7 @@
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
-        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'npeycru@euodia.fr')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'nicolasbozabalian@gmail.com')">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -858,8 +858,26 @@ async function submitRdv(e) {
     situation: situation,
     cc_admin:  EJS.admin,
   };
+  var msgClient = `Nous avons bien reçu votre demande de rendez-vous avec ${d.pro_nom}, ${d.pro_titre || 'Conseiller partenaire'}.
+
+Votre demande a été transmise directement au conseiller, qui vous recontactera sous 48h ouvrées pour convenir d'un premier échange.
+
+Pour rappel, ce rendez-vous est sans engagement et ne vous sera pas facturé.
+
+Situation décrite :
+"${situation}"
+
+En attendant, n'hésitez pas à consulter les offres exclusives que ${d.pro_nom} propose via Courtalian — elles s'appliqueront automatiquement dès votre premier rendez-vous.`;
+
+  var paramsClient = {
+    to_email: d.email,
+    to_name:  d.prenom,
+    message:  msgClient,
+  };
+
   try {
     await emailjs.send(EJS.service, EJS.tpl_rdv, params);
+    await emailjs.send(EJS.service, EJS.tpl_parrainage, paramsClient);
     await sendToMake(MAKE.rdv, {
       date:       new Date().toLocaleDateString('fr-FR'),
       prenom:     d.prenom,
