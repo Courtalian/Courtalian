@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Courtalian — Conseillers en gestion de patrimoine</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   :root {
     --navy: #1a2f4a;
@@ -88,7 +89,8 @@
   /* OFFRES PRÉFÉRENTIELLES */
   .offres { background: var(--navy); padding: 60px 5%; }
   .offres-inner { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
-  .offres-icon { font-size: 3rem; flex-shrink: 0; }
+  .offres-icon { font-size: 3rem; flex-shrink: 0; display: flex; align-items: center; }
+  .offres-icon i, .offres-icon svg { width: 52px; height: 52px; stroke: #c9a84c; }
   .offres-text { flex: 1; min-width: 260px; }
   .offres-text .section-label { color: var(--gold); }
   .offres-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--white); margin-bottom: 1rem; line-height: 1.25; }
@@ -169,6 +171,7 @@
   .parrainage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
   .benefit-item { display: flex; gap: 1rem; margin-bottom: 1.75rem; }
   .benefit-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .benefit-icon i, .benefit-icon svg { width: 20px; height: 20px; stroke: #c9a84c; }
   .benefit-item h4 { color: var(--white); font-weight: 500; margin-bottom: .3rem; font-size: 0.95rem; }
   .benefit-item p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; }
 
@@ -201,13 +204,19 @@
   .pro-stats-grid .pro-stat-item { padding: .3rem .4rem; }
   .pro-stat-item { display: flex; align-items: center; gap: .5rem; }
   .pro-stat-icon { width: 26px; height: 26px; border-radius: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; font-size: .78rem; flex-shrink: 0; }
+  .pro-stat-icon i, .pro-stat-icon svg { width: 13px; height: 13px; stroke: #c9a84c; }
   .pro-stat-text { display: flex; flex-direction: column; }
   .pro-stat-label { font-size: 0.6rem; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; line-height: 1.2; }
   .pro-stat-value { font-size: 0.78rem; color: var(--navy); font-weight: 600; }
+  .pro-stat-sublabel { font-size: 0.58rem; color: var(--gray); font-weight: 400; line-height: 1.2; margin-top: .1rem; }
+  .pro-stat-item--orias { grid-column: 1 / -1; }
+  .pro-stat-icon--orias i, .pro-stat-icon--orias svg { stroke: #1a7f4b; }
+  .pro-stat-icon--orias { background: rgba(26,127,75,0.10); border-color: rgba(26,127,75,0.25); }
 
   /* OFFRE VIA COURTALIAN */
   .pro-offre-courtalian { background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
-  .pro-offre-courtalian-title { font-size: 0.75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .65rem; }
+  .pro-offre-courtalian-title { font-size: 0.75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .65rem; display: flex; align-items: center; gap: .4rem; }
+  .pro-offre-courtalian-title i, .pro-offre-courtalian-title svg { width: 13px; height: 13px; stroke: #c9a84c; flex-shrink: 0; }
   .pro-offre-courtalian ul { list-style: none; }
   .pro-offre-courtalian ul li { color: rgba(255,255,255,0.85); font-size: 0.85rem; padding: .22rem 0; display: flex; align-items: flex-start; gap: .55rem; line-height: 1.5; }
   .pro-offre-courtalian ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; font-weight: 700; }
@@ -219,6 +228,19 @@
   .pro-bio-toggle.open .pro-bio-arrow { transform: rotate(180deg); }
   .pro-bio-content { display: none; padding: .75rem .9rem; background: var(--cream); border-radius: 8px; margin-bottom: .85rem; font-size: 0.87rem; color: var(--gray); line-height: 1.7; }
   .pro-bio-content.open { display: block; }
+
+  /* CONTACT */
+  .contact-section { background: var(--cream); padding: 80px 5%; }
+  .contact-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+  .contact-inner .section-title { color: var(--navy); margin-bottom: .75rem; }
+  .contact-inner .section-sub { color: var(--gray); font-size: 0.97rem; line-height: 1.75; font-weight: 300; margin-bottom: 2.5rem; }
+  .contact-card { display: inline-flex; align-items: center; gap: 1.1rem; background: var(--white); border: 1px solid rgba(201,168,76,0.3); border-radius: 14px; padding: 1.25rem 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 14px rgba(26,47,74,0.07); }
+  .contact-card-icon { width: 46px; height: 46px; border-radius: 10px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-card-icon i, .contact-card-icon svg { width: 20px; height: 20px; stroke: #c9a84c; }
+  .contact-card-label { font-size: 0.65rem; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .2rem; }
+  .contact-card-email { font-size: 1.05rem; font-weight: 600; color: var(--navy); text-decoration: none; }
+  .contact-card-email:hover { color: var(--gold); }
+  .contact-hint { font-size: 0.84rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -261,6 +283,7 @@
     <li><a href="#comment">Comment ça marche</a></li>
     <li><a href="#professionnels">Nos conseillers</a></li>
     <li><a href="#parrainage">Parrainage</a></li>
+    <li><a href="#contact">Nous contacter</a></li>
   </ul>
   <a class="nav-cta" href="#professionnels">Prendre RDV</a>
   <div class="nav-burger" onclick="toggleNav()">
@@ -290,7 +313,6 @@
 <!-- OFFRES PRÉFÉRENTIELLES -->
 <div class="offres" id="offres">
   <div class="offres-inner">
-    <div class="offres-icon">🎯</div>
     <div class="offres-text">
       <div class="section-label">Notre valeur ajoutée</div>
       <h2>Des offres négociées <em style="color:var(--gold)">en exclusivité</em> pour nos clients</h2>
@@ -347,7 +369,7 @@
         <div class="pro-stats">
           <div class="pro-stat-top">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">👥</div>
+              <div class="pro-stat-icon"><i data-lucide="users"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Nombre de clients</div>
                 <div class="pro-stat-value">+800 clients</div>
@@ -356,31 +378,39 @@
           </div>
           <div class="pro-stats-grid">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🕐</div>
+              <div class="pro-stat-icon"><i data-lucide="clock"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Expérience</div>
                 <div class="pro-stat-value">+20 ans</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🎓</div>
+              <div class="pro-stat-icon"><i data-lucide="graduation-cap"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Diplôme</div>
                 <div class="pro-stat-value">Master Finance Dauphine · MBA Washington</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">📍</div>
+              <div class="pro-stat-icon"><i data-lucide="map-pin"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Lieu</div>
                 <div class="pro-stat-value">Aix-en-Provence</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🖥</div>
+              <div class="pro-stat-icon"><i data-lucide="video"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Type de RDV</div>
                 <div class="pro-stat-value">Physique &amp; Visio</div>
+              </div>
+            </div>
+            <div class="pro-stat-item pro-stat-item--orias">
+              <div class="pro-stat-icon pro-stat-icon--orias"><i data-lucide="badge-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Immatriculation ORIAS</div>
+                <div class="pro-stat-value">N° 14005061</div>
+                <div class="pro-stat-sublabel">Registre officiel des intermédiaires en Assurance</div>
               </div>
             </div>
           </div>
@@ -408,13 +438,13 @@
           </div>
         </div>
         <div class="pro-offre-courtalian">
-          <div class="pro-offre-courtalian-title">🏷 L'Offre via Courtalian</div>
+          <div class="pro-offre-courtalian-title"><i data-lucide="tag"></i> L'Offre via Courtalian</div>
           <ul>
             <li>Frais d'entrée offerts sur les produits financiers</li>
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
-        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'nicolasbozabalian@gmail.com')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'npeycru@euodia.fr')">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -429,7 +459,7 @@
         <div class="pro-stats">
           <div class="pro-stat-top">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">👥</div>
+              <div class="pro-stat-icon"><i data-lucide="users"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Nombre de clients</div>
                 <div class="pro-stat-value">+300 clients</div>
@@ -438,31 +468,39 @@
           </div>
           <div class="pro-stats-grid">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🕐</div>
+              <div class="pro-stat-icon"><i data-lucide="clock"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Expérience</div>
                 <div class="pro-stat-value">+11 ans</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🎓</div>
+              <div class="pro-stat-icon"><i data-lucide="graduation-cap"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Diplôme</div>
                 <div class="pro-stat-value">MSC Gestion de Patrimoine — Kedge</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">📍</div>
+              <div class="pro-stat-icon"><i data-lucide="map-pin"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Lieu</div>
                 <div class="pro-stat-value">Marseille &amp; Aix-en-Provence</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🖥</div>
+              <div class="pro-stat-icon"><i data-lucide="video"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Type de RDV</div>
                 <div class="pro-stat-value">Physique &amp; Visio</div>
+              </div>
+            </div>
+            <div class="pro-stat-item pro-stat-item--orias">
+              <div class="pro-stat-icon pro-stat-icon--orias"><i data-lucide="badge-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Immatriculation ORIAS</div>
+                <div class="pro-stat-value">N° 17000105</div>
+                <div class="pro-stat-sublabel">Registre officiel des intermédiaires en Assurance</div>
               </div>
             </div>
           </div>
@@ -491,7 +529,7 @@
           </div>
         </div>
         <div class="pro-offre-courtalian">
-          <div class="pro-offre-courtalian-title">🏷 L'Offre via Courtalian</div>
+          <div class="pro-offre-courtalian-title"><i data-lucide="tag"></i> L'Offre via Courtalian</div>
           <ul>
             <li>Frais d'entrée offerts sur les produits financiers</li>
             <li>3 RDVs offerts sans engagement</li>
@@ -559,21 +597,21 @@
       </div>
 
       <div class="benefit-item">
-        <div class="benefit-icon">🤝</div>
+        <div class="benefit-icon"><i data-lucide="handshake"></i></div>
         <div>
           <h4>Simple à faire</h4>
           <p>Renseignez les coordonnées de votre filleul. Nous prenons le relais et le contactons à votre place.</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">📬</div>
+        <div class="benefit-icon"><i data-lucide="mail"></i></div>
         <div>
           <h4>Votre filleul est prévenu</h4>
           <p>Il reçoit un e-mail de notre part lui expliquant la démarche et l'informant qu'un conseiller va le contacter.</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">🔔</div>
+        <div class="benefit-icon"><i data-lucide="bell"></i></div>
         <div>
           <h4>Vous êtes tenu informé</h4>
           <p>Nous vous tenons au courant de l'avancement à chaque étape — et vous alertons dès que votre récompense est déclenchée.</p>
@@ -708,6 +746,23 @@
   </div>
 </section>
 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Une question ?</div>
+    <h2 class="section-title">Nous contacter</h2>
+    <p class="section-sub">Vous avez une question sur nos conseillers, sur le fonctionnement de Courtalian, ou vous souhaitez simplement en savoir plus avant de prendre rendez-vous ? Notre équipe vous répond sous 48h.</p>
+    <div class="contact-card">
+      <div class="contact-card-icon"><i data-lucide="mail"></i></div>
+      <div>
+        <div class="contact-card-label">Adresse e-mail</div>
+        <a class="contact-card-email" href="mailto:equipecourtalian@gmail.com">equipecourtalian@gmail.com</a>
+      </div>
+    </div>
+    <p class="contact-hint">Pour toute question relative à votre patrimoine, à une mise en relation, à notre programme de parrainage ou à toute autre demande — écrivez-nous directement.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Courtalian — Tous droits réservés · <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></p>
@@ -721,7 +776,7 @@ const EJS = {
   service:        'service_7fq9zfh',
   tpl_rdv:        'template_tl01f53',
   tpl_parrainage: 'template_p22pc3p',
-  admin:          'nicolasbozabalian@gmail.com',
+  admin:          'equipecourtalian@gmail.com',
 };
 
 const MAKE = {
@@ -1048,6 +1103,9 @@ window.addEventListener('DOMContentLoaded', function() {
       if (section) section.scrollIntoView({ behavior: 'smooth' });
     }, 500);
   }
+
+  // Lucide icons
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 </script>
 </body>
