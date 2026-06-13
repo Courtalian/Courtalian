@@ -931,21 +931,73 @@ En attendant, n'hésitez pas à consulter les offres exclusives que ${d.pro_nom}
     subject:  'Votre demande de rendez-vous — Courtalian',
   };
 
+  // Notification parrain + ligne onglet Parrainage (si RDV pris via un lien de parrainage)
+  var parrainPrenom = '', parrainNom = '';
+  var paramsParrainNotif = null;
+  if (parrainData) {
+    var parts = parrainData.nom.trim().split(/\s+/);
+    parrainPrenom = parts[0] || parrainData.nom;
+    parrainNom    = parts.length > 1 ? parts.slice(1).join(' ') : '';
+    var msgParrainNotif = `Bonjour ${parrainPrenom},
+
+Excellente nouvelle ! ${d.prenom}, que vous avez recommandé(e), vient de prendre rendez-vous avec l'un de nos conseillers via votre lien de parrainage. Merci pour votre confiance 🙏
+
+Voici la suite :
+– Notre conseiller va échanger avec ${d.prenom} lors d'un premier rendez-vous sans engagement.
+– Si la mise en relation aboutit à une solution signée, vous recevrez votre récompense.
+– Nous vous tiendrons informé(e) à chaque étape.
+
+Bon à savoir : votre lien de parrainage reste valable en permanence — vous pouvez l'utiliser pour recommander autant de proches que vous le souhaitez. Chaque parrainage abouti vous rapporte.
+
+À très bientôt,
+L'équipe Courtalian`;
+    paramsParrainNotif = {
+      to_email: parrainData.email,
+      to_name:  parrainPrenom,
+      message:  msgParrainNotif,
+      subject:  'Bonne nouvelle — votre recommandation a porté ses fruits 🎉',
+      cc_admin: EJS.admin,
+    };
+  }
+
   try {
-    await emailjs.send(EJS.service, EJS.tpl_rdv, params);
-    await emailjs.send(EJS.service, EJS.tpl_parrainage, paramsClient);
-    await sendToMake(MAKE.rdv, {
-      date:       new Date().toLocaleDateString('fr-FR'),
-      prenom:     d.prenom,
-      nom:        d.nom,
-      email:      d.email,
-      telephone:  d.telephone,
-      conseiller: d.pro_nom,
-      pro_email:  d.pro_email,
-      statut:     'RDV demandé',
-      source:     parrainData ? 'Parrainage' : 'Site web',
-      situation:  d.message || '',
-      parrain:    parrainData ? parrainData.nom : '',
+    // Envois indépendants : une panne n'en bloque plus aucune (le Sheet est toujours alimenté)
+    var tasks = [
+      emailjs.send(EJS.service, EJS.tpl_rdv, params),               // conseiller (+ admin en copie)
+      emailjs.send(EJS.service, EJS.tpl_parrainage, paramsClient),  // client / filleul
+      sendToMake(MAKE.rdv, {
+        date:       new Date().toLocaleDateString('fr-FR'),
+        prenom:     d.prenom,
+        nom:        d.nom,
+        email:      d.email,
+        telephone:  d.telephone,
+        conseiller: d.pro_nom,
+        pro_email:  d.pro_email,
+        statut:     'RDV demandé',
+        source:     parrainData ? 'Parrainage' : 'Site web',
+        situation:  d.message || '',
+        parrain:    parrainData ? parrainData.nom : '',
+      }),
+    ];
+    // RDV via lien de parrainage : on notifie le parrain + on alimente l'onglet Parrainage
+    if (parrainData && paramsParrainNotif) {
+      tasks.push(emailjs.send(EJS.service, EJS.tpl_parrainage, paramsParrainNotif));
+      tasks.push(sendToMake(MAKE.parrainage, {
+        date:              new Date().toLocaleDateString('fr-FR'),
+        parrain_prenom:    parrainPrenom,
+        parrain_nom:       parrainNom,
+        parrain_email:     parrainData.email,
+        filleul_prenom:    d.prenom,
+        filleul_nom:       d.nom,
+        filleul_email:     d.email,
+        filleul_telephone: d.telephone,
+        statut:            'RDV pris via lien',
+        situation:         d.message || '',
+      }));
+    }
+    var results = await Promise.allSettled(tasks);
+    results.forEach(function(r, i) {
+      if (r.status === 'rejected') console.log('submitRdv — étape ' + i + ' échouée :', r.reason);
     });
     showMsg('rdvMsg', 'Votre demande a bien été envoyée ! Vous allez recevoir un e-mail de confirmation. ' + d.pro_nom + ' vous contactera sous 48h.', 'success');
     form.querySelectorAll('input:not([type=hidden]), textarea').forEach(function(f) { f.value = ''; });
