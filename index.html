@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Courtalian — Conseillers en gestion de patrimoine</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   :root {
     --navy: #1a2f4a;
@@ -88,7 +89,8 @@
   /* OFFRES PRÉFÉRENTIELLES */
   .offres { background: var(--navy); padding: 60px 5%; }
   .offres-inner { display: flex; align-items: center; gap: 4rem; flex-wrap: wrap; }
-  .offres-icon { font-size: 3rem; flex-shrink: 0; }
+  .offres-icon { font-size: 3rem; flex-shrink: 0; display: flex; align-items: center; }
+  .offres-icon i, .offres-icon svg { width: 52px; height: 52px; stroke: #c9a84c; }
   .offres-text { flex: 1; min-width: 260px; }
   .offres-text .section-label { color: var(--gold); }
   .offres-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--white); margin-bottom: 1rem; line-height: 1.25; }
@@ -169,6 +171,7 @@
   .parrainage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
   .benefit-item { display: flex; gap: 1rem; margin-bottom: 1.75rem; }
   .benefit-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .benefit-icon i, .benefit-icon svg { width: 20px; height: 20px; stroke: #c9a84c; }
   .benefit-item h4 { color: var(--white); font-weight: 500; margin-bottom: .3rem; font-size: 0.95rem; }
   .benefit-item p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6; }
 
@@ -201,13 +204,19 @@
   .pro-stats-grid .pro-stat-item { padding: .3rem .4rem; }
   .pro-stat-item { display: flex; align-items: center; gap: .5rem; }
   .pro-stat-icon { width: 26px; height: 26px; border-radius: 6px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.2); display: flex; align-items: center; justify-content: center; font-size: .78rem; flex-shrink: 0; }
+  .pro-stat-icon i, .pro-stat-icon svg { width: 13px; height: 13px; stroke: #c9a84c; }
   .pro-stat-text { display: flex; flex-direction: column; }
   .pro-stat-label { font-size: 0.6rem; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; line-height: 1.2; }
   .pro-stat-value { font-size: 0.78rem; color: var(--navy); font-weight: 600; }
+  .pro-stat-sublabel { font-size: 0.58rem; color: var(--gray); font-weight: 400; line-height: 1.2; margin-top: .1rem; }
+  .pro-stat-item--orias { grid-column: 1 / -1; }
+  .pro-stat-icon--orias i, .pro-stat-icon--orias svg { stroke: #1a7f4b; }
+  .pro-stat-icon--orias { background: rgba(26,127,75,0.10); border-color: rgba(26,127,75,0.25); }
 
   /* OFFRE VIA COURTALIAN */
   .pro-offre-courtalian { background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; }
-  .pro-offre-courtalian-title { font-size: 0.75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .65rem; }
+  .pro-offre-courtalian-title { font-size: 0.75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: .65rem; display: flex; align-items: center; gap: .4rem; }
+  .pro-offre-courtalian-title i, .pro-offre-courtalian-title svg { width: 13px; height: 13px; stroke: #c9a84c; flex-shrink: 0; }
   .pro-offre-courtalian ul { list-style: none; }
   .pro-offre-courtalian ul li { color: rgba(255,255,255,0.85); font-size: 0.85rem; padding: .22rem 0; display: flex; align-items: flex-start; gap: .55rem; line-height: 1.5; }
   .pro-offre-courtalian ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; font-weight: 700; }
@@ -219,6 +228,19 @@
   .pro-bio-toggle.open .pro-bio-arrow { transform: rotate(180deg); }
   .pro-bio-content { display: none; padding: .75rem .9rem; background: var(--cream); border-radius: 8px; margin-bottom: .85rem; font-size: 0.87rem; color: var(--gray); line-height: 1.7; }
   .pro-bio-content.open { display: block; }
+
+  /* CONTACT */
+  .contact-section { background: var(--cream); padding: 80px 5%; }
+  .contact-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+  .contact-inner .section-title { color: var(--navy); margin-bottom: .75rem; }
+  .contact-inner .section-sub { color: var(--gray); font-size: 0.97rem; line-height: 1.75; font-weight: 300; margin-bottom: 2.5rem; }
+  .contact-card { display: inline-flex; align-items: center; gap: 1.1rem; background: var(--white); border: 1px solid rgba(201,168,76,0.3); border-radius: 14px; padding: 1.25rem 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 14px rgba(26,47,74,0.07); }
+  .contact-card-icon { width: 46px; height: 46px; border-radius: 10px; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-card-icon i, .contact-card-icon svg { width: 20px; height: 20px; stroke: #c9a84c; }
+  .contact-card-label { font-size: 0.65rem; color: var(--gray); font-weight: 500; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .2rem; }
+  .contact-card-email { font-size: 1.05rem; font-weight: 600; color: var(--navy); text-decoration: none; }
+  .contact-card-email:hover { color: var(--gold); }
+  .contact-hint { font-size: 0.84rem; color: var(--gray); line-height: 1.7; font-weight: 300; }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -261,6 +283,7 @@
     <li><a href="#comment">Comment ça marche</a></li>
     <li><a href="#professionnels">Nos conseillers</a></li>
     <li><a href="#parrainage">Parrainage</a></li>
+    <li><a href="#contact">Nous contacter</a></li>
   </ul>
   <a class="nav-cta" href="#professionnels">Prendre RDV</a>
   <div class="nav-burger" onclick="toggleNav()">
@@ -290,7 +313,6 @@
 <!-- OFFRES PRÉFÉRENTIELLES -->
 <div class="offres" id="offres">
   <div class="offres-inner">
-    <div class="offres-icon">🎯</div>
     <div class="offres-text">
       <div class="section-label">Notre valeur ajoutée</div>
       <h2>Des offres négociées <em style="color:var(--gold)">en exclusivité</em> pour nos clients</h2>
@@ -347,7 +369,7 @@
         <div class="pro-stats">
           <div class="pro-stat-top">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">👥</div>
+              <div class="pro-stat-icon"><i data-lucide="users"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Nombre de clients</div>
                 <div class="pro-stat-value">+800 clients</div>
@@ -356,31 +378,39 @@
           </div>
           <div class="pro-stats-grid">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🕐</div>
+              <div class="pro-stat-icon"><i data-lucide="clock"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Expérience</div>
                 <div class="pro-stat-value">+20 ans</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🎓</div>
+              <div class="pro-stat-icon"><i data-lucide="graduation-cap"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Diplôme</div>
                 <div class="pro-stat-value">Master Finance Dauphine · MBA Washington</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">📍</div>
+              <div class="pro-stat-icon"><i data-lucide="map-pin"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Lieu</div>
                 <div class="pro-stat-value">Aix-en-Provence</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🖥</div>
+              <div class="pro-stat-icon"><i data-lucide="video"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Type de RDV</div>
                 <div class="pro-stat-value">Physique &amp; Visio</div>
+              </div>
+            </div>
+            <div class="pro-stat-item pro-stat-item--orias">
+              <div class="pro-stat-icon pro-stat-icon--orias"><i data-lucide="badge-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Immatriculation ORIAS</div>
+                <div class="pro-stat-value">N° 14005061</div>
+                <div class="pro-stat-sublabel">Registre officiel des intermédiaires en Assurance</div>
               </div>
             </div>
           </div>
@@ -408,13 +438,13 @@
           </div>
         </div>
         <div class="pro-offre-courtalian">
-          <div class="pro-offre-courtalian-title">🏷 L'Offre via Courtalian</div>
+          <div class="pro-offre-courtalian-title"><i data-lucide="tag"></i> L'Offre via Courtalian</div>
           <ul>
             <li>Frais d'entrée offerts sur les produits financiers</li>
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
-        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'nicolasbozabalian@gmail.com')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'npeycru@euodia.fr')">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -429,7 +459,7 @@
         <div class="pro-stats">
           <div class="pro-stat-top">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">👥</div>
+              <div class="pro-stat-icon"><i data-lucide="users"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Nombre de clients</div>
                 <div class="pro-stat-value">+300 clients</div>
@@ -438,31 +468,39 @@
           </div>
           <div class="pro-stats-grid">
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🕐</div>
+              <div class="pro-stat-icon"><i data-lucide="clock"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Expérience</div>
                 <div class="pro-stat-value">+11 ans</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🎓</div>
+              <div class="pro-stat-icon"><i data-lucide="graduation-cap"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Diplôme</div>
                 <div class="pro-stat-value">MSC Gestion de Patrimoine — Kedge</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">📍</div>
+              <div class="pro-stat-icon"><i data-lucide="map-pin"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Lieu</div>
                 <div class="pro-stat-value">Marseille &amp; Aix-en-Provence</div>
               </div>
             </div>
             <div class="pro-stat-item">
-              <div class="pro-stat-icon">🖥</div>
+              <div class="pro-stat-icon"><i data-lucide="video"></i></div>
               <div class="pro-stat-text">
                 <div class="pro-stat-label">Type de RDV</div>
                 <div class="pro-stat-value">Physique &amp; Visio</div>
+              </div>
+            </div>
+            <div class="pro-stat-item pro-stat-item--orias">
+              <div class="pro-stat-icon pro-stat-icon--orias"><i data-lucide="badge-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Immatriculation ORIAS</div>
+                <div class="pro-stat-value">N° 17000105</div>
+                <div class="pro-stat-sublabel">Registre officiel des intermédiaires en Assurance</div>
               </div>
             </div>
           </div>
@@ -491,13 +529,82 @@
           </div>
         </div>
         <div class="pro-offre-courtalian">
-          <div class="pro-offre-courtalian-title">🏷 L'Offre via Courtalian</div>
+          <div class="pro-offre-courtalian-title"><i data-lucide="tag"></i> L'Offre via Courtalian</div>
           <ul>
             <li>Frais d'entrée offerts sur les produits financiers</li>
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
         <button class="btn-rdv" onclick="openModal('Charles Sitbon', 'Conseiller en Gestion de Patrimoine', 'csitbon@euodia.fr')">Prendre rendez-vous</button>
+      </div>
+    </div>
+
+    <!-- Anne-Claire Duval -->
+    <div class="pro-card">
+      <div class="pro-header">
+        <div class="pro-avatar"><img src="photo anne claire.jpeg" alt="Anne-Claire Duval"/></div>
+        <h3>Anne-Claire Duval</h3>
+        <span>Courtière en Crédits Immobiliers</span>
+      </div>
+      <div class="pro-body">
+        <div class="pro-stats">
+          <div class="pro-stat-top">
+            <div class="pro-stat-item">
+              <div class="pro-stat-icon"><i data-lucide="file-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Dossiers financés</div>
+                <div class="pro-stat-value">+500 dossiers</div>
+              </div>
+            </div>
+          </div>
+          <div class="pro-stats-grid">
+            <div class="pro-stat-item">
+              <div class="pro-stat-icon"><i data-lucide="clock"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Expérience</div>
+                <div class="pro-stat-value">+10 ans</div>
+              </div>
+            </div>
+            <div class="pro-stat-item">
+              <div class="pro-stat-icon"><i data-lucide="building-2"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Réseau</div>
+                <div class="pro-stat-value">Artémis Courtage</div>
+              </div>
+            </div>
+            <div class="pro-stat-item">
+              <div class="pro-stat-icon"><i data-lucide="map-pin"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Lieu</div>
+                <div class="pro-stat-value">Marseille</div>
+              </div>
+            </div>
+            <div class="pro-stat-item">
+              <div class="pro-stat-icon"><i data-lucide="video"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Type de RDV</div>
+                <div class="pro-stat-value">Physique &amp; Visio</div>
+              </div>
+            </div>
+            <div class="pro-stat-item pro-stat-item--orias">
+              <div class="pro-stat-icon pro-stat-icon--orias"><i data-lucide="badge-check"></i></div>
+              <div class="pro-stat-text">
+                <div class="pro-stat-label">Immatriculation ORIAS</div>
+                <div class="pro-stat-value">N° 16001931</div>
+                <div class="pro-stat-sublabel">Registre officiel des intermédiaires en Opérations de Banque</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pro-bio-expertise-label">Domaines d'expertise</div>
+        <div class="pro-tags">
+          <span class="pro-tag">Prêt immobilier</span>
+          <span class="pro-tag">Assurance de prêt</span>
+          <span class="pro-tag">Regroupement de crédit</span>
+          <span class="pro-tag">Prêt professionnel</span>
+          <span class="pro-tag">Immobilier neuf</span>
+        </div>
+        <button class="btn-rdv" onclick="openModal('Anne-Claire Duval', 'Courtière en Crédits Immobiliers', 'anneclaire.duval@artemiscourtage.com')">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -559,21 +666,21 @@
       </div>
 
       <div class="benefit-item">
-        <div class="benefit-icon">🤝</div>
+        <div class="benefit-icon"><i data-lucide="handshake"></i></div>
         <div>
           <h4>Simple à faire</h4>
           <p>Renseignez les coordonnées de votre filleul. Nous prenons le relais et le contactons à votre place.</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">📬</div>
+        <div class="benefit-icon"><i data-lucide="mail"></i></div>
         <div>
           <h4>Votre filleul est prévenu</h4>
           <p>Il reçoit un e-mail de notre part lui expliquant la démarche et l'informant qu'un conseiller va le contacter.</p>
         </div>
       </div>
       <div class="benefit-item">
-        <div class="benefit-icon">🔔</div>
+        <div class="benefit-icon"><i data-lucide="bell"></i></div>
         <div>
           <h4>Vous êtes tenu informé</h4>
           <p>Nous vous tenons au courant de l'avancement à chaque étape — et vous alertons dès que votre récompense est déclenchée.</p>
@@ -708,6 +815,23 @@
   </div>
 </section>
 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Une question ?</div>
+    <h2 class="section-title">Nous contacter</h2>
+    <p class="section-sub">Vous avez une question sur nos conseillers, sur le fonctionnement de Courtalian, ou vous souhaitez simplement en savoir plus avant de prendre rendez-vous ? Notre équipe vous répond sous 48h.</p>
+    <div class="contact-card">
+      <div class="contact-card-icon"><i data-lucide="mail"></i></div>
+      <div>
+        <div class="contact-card-label">Adresse e-mail</div>
+        <a class="contact-card-email" href="mailto:equipecourtalian@gmail.com">equipecourtalian@gmail.com</a>
+      </div>
+    </div>
+    <p class="contact-hint">Pour toute question relative à votre patrimoine, à une mise en relation, à notre programme de parrainage ou à toute autre demande — écrivez-nous directement.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Courtalian — Tous droits réservés · <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></p>
@@ -721,7 +845,7 @@ const EJS = {
   service:        'service_7fq9zfh',
   tpl_rdv:        'template_tl01f53',
   tpl_parrainage: 'template_p22pc3p',
-  admin:          'nicolasbozabalian@gmail.com',
+  admin:          'equipecourtalian@gmail.com',
 };
 
 const MAKE = {
@@ -858,20 +982,91 @@ async function submitRdv(e) {
     situation: situation,
     cc_admin:  EJS.admin,
   };
+  var msgClient = `Nous avons bien reçu votre demande de rendez-vous avec ${d.pro_nom}, ${d.pro_titre || 'Conseiller partenaire'}.
+
+Votre demande a été transmise directement au conseiller, qui vous recontactera sous 48h ouvrées pour convenir d'un premier échange.
+
+Pour rappel, ce rendez-vous est sans engagement et ne vous sera pas facturé.
+
+Situation décrite :
+"${situation}"
+
+En attendant, n'hésitez pas à consulter les offres exclusives que ${d.pro_nom} propose via Courtalian — elles s'appliqueront automatiquement dès votre premier rendez-vous.`;
+
+  var paramsClient = {
+    to_email: d.email,
+    to_name:  d.prenom,
+    message:  msgClient,
+    subject:  'Votre demande de rendez-vous — Courtalian',
+  };
+
+  // Notification parrain + ligne onglet Parrainage (si RDV pris via un lien de parrainage)
+  var parrainPrenom = '', parrainNom = '';
+  var paramsParrainNotif = null;
+  if (parrainData) {
+    var parts = parrainData.nom.trim().split(/\s+/);
+    parrainPrenom = parts[0] || parrainData.nom;
+    parrainNom    = parts.length > 1 ? parts.slice(1).join(' ') : '';
+    var msgParrainNotif = `Bonjour ${parrainPrenom},
+
+Excellente nouvelle ! ${d.prenom}, que vous avez recommandé(e), vient de prendre rendez-vous avec l'un de nos conseillers via votre lien de parrainage. Merci pour votre confiance 🙏
+
+Voici la suite :
+– Notre conseiller va échanger avec ${d.prenom} lors d'un premier rendez-vous sans engagement.
+– Si la mise en relation aboutit à une solution signée, vous recevrez votre récompense.
+– Nous vous tiendrons informé(e) à chaque étape.
+
+Bon à savoir : votre lien de parrainage reste valable en permanence — vous pouvez l'utiliser pour recommander autant de proches que vous le souhaitez. Chaque parrainage abouti vous rapporte.
+
+À très bientôt,
+L'équipe Courtalian`;
+    paramsParrainNotif = {
+      to_email: parrainData.email,
+      to_name:  parrainPrenom,
+      message:  msgParrainNotif,
+      subject:  'Bonne nouvelle — votre recommandation a porté ses fruits 🎉',
+      cc_admin: EJS.admin,
+    };
+  }
+
   try {
-    await emailjs.send(EJS.service, EJS.tpl_rdv, params);
-    await sendToMake(MAKE.rdv, {
-      date:       new Date().toLocaleDateString('fr-FR'),
-      prenom:     d.prenom,
-      nom:        d.nom,
-      email:      d.email,
-      telephone:  d.telephone,
-      conseiller: d.pro_nom,
-      pro_email:  d.pro_email,
-      statut:     'RDV demandé',
-      source:     parrainData ? 'Parrainage' : 'Site web',
-      situation:  d.message || '',
-      parrain:    parrainData ? parrainData.nom : '',
+    // Envois indépendants : une panne n'en bloque plus aucune (le Sheet est toujours alimenté)
+    var tasks = [
+      emailjs.send(EJS.service, EJS.tpl_rdv, params),               // conseiller (+ admin en copie)
+      emailjs.send(EJS.service, EJS.tpl_parrainage, paramsClient),  // client / filleul
+      sendToMake(MAKE.rdv, {
+        date:       new Date().toLocaleDateString('fr-FR'),
+        prenom:     d.prenom,
+        nom:        d.nom,
+        email:      d.email,
+        telephone:  d.telephone,
+        conseiller: d.pro_nom,
+        pro_email:  d.pro_email,
+        statut:     'RDV demandé',
+        source:     parrainData ? 'Parrainage' : 'Site web',
+        situation:  d.message || '',
+        parrain:    parrainData ? parrainData.nom : '',
+      }),
+    ];
+    // RDV via lien de parrainage : on notifie le parrain + on alimente l'onglet Parrainage
+    if (parrainData && paramsParrainNotif) {
+      tasks.push(emailjs.send(EJS.service, EJS.tpl_parrainage, paramsParrainNotif));
+      tasks.push(sendToMake(MAKE.parrainage, {
+        date:              new Date().toLocaleDateString('fr-FR'),
+        parrain_prenom:    parrainPrenom,
+        parrain_nom:       parrainNom,
+        parrain_email:     parrainData.email,
+        filleul_prenom:    d.prenom,
+        filleul_nom:       d.nom,
+        filleul_email:     d.email,
+        filleul_telephone: d.telephone,
+        statut:            'RDV pris via lien',
+        situation:         d.message || '',
+      }));
+    }
+    var results = await Promise.allSettled(tasks);
+    results.forEach(function(r, i) {
+      if (r.status === 'rejected') console.log('submitRdv — étape ' + i + ' échouée :', r.reason);
     });
     showMsg('rdvMsg', 'Votre demande a bien été envoyée ! Vous allez recevoir un e-mail de confirmation. ' + d.pro_nom + ' vous contactera sous 48h.', 'success');
     form.querySelectorAll('input:not([type=hidden]), textarea').forEach(function(f) { f.value = ''; });
@@ -993,8 +1188,8 @@ async function submitParrainage(e) {
   var msgParrain = 'Votre parrainage a bien été enregistré. Merci pour votre confiance !\n\nNous allons contacter ' + d.filleul_prenom + ' ' + d.filleul_nom + ' très prochainement pour lui présenter nos services.\n\nSi la mise en relation aboutit à une solution signée, vous recevrez une récompense de 50€. Nous vous tiendrons informé à chaque étape.\n\nCordialement,\nL\'Équipe Courtalian';
   var msgFilleul = d.parrain_prenom + ' ' + d.parrain_nom + ' a pensé à vous et vous a recommandé auprès de Courtalian.\n\nCourtalian met en relation des particuliers avec des conseillers en gestion de patrimoine et courtiers en crédit sélectionnés, avec des conditions négociées en exclusivité.\n\nUn conseiller va vous contacter très prochainement pour un premier échange sans engagement.\n\nCordialement,\nL\'Équipe Courtalian';
 
-  var paramsParrain = { to_email: d.parrain_email, to_name: d.parrain_prenom, email: d.parrain_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgParrain, cc_admin: EJS.admin };
-  var paramsFilleul = { to_email: d.filleul_email, to_name: d.filleul_prenom, email: d.filleul_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgFilleul, cc_admin: EJS.admin };
+  var paramsParrain = { to_email: d.parrain_email, to_name: d.parrain_prenom, email: d.parrain_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgParrain, subject: 'Votre parrainage a bien été enregistré — Courtalian', cc_admin: EJS.admin };
+  var paramsFilleul = { to_email: d.filleul_email, to_name: d.filleul_prenom, email: d.filleul_email, parrain_prenom: d.parrain_prenom, parrain_nom: d.parrain_nom, filleul_prenom: d.filleul_prenom, filleul_nom: d.filleul_nom, filleul_email: d.filleul_email, message: msgFilleul, subject: 'Vous avez été recommandé — Courtalian', cc_admin: EJS.admin };
 
   try {
     await emailjs.send(EJS.service, EJS.tpl_parrainage, paramsParrain);
@@ -1029,6 +1224,9 @@ window.addEventListener('DOMContentLoaded', function() {
       if (section) section.scrollIntoView({ behavior: 'smooth' });
     }, 500);
   }
+
+  // Lucide icons
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 </script>
 </body>
