@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Courtalian — Conseillers en gestion de patrimoine</title>
+<title>Courtalian — Mise en relation Gestion de Patrimoine et Courtage en Crédit</title>
+<meta name="description" content="Courtalian met en relation les particuliers avec des conseillers en gestion de patrimoine et courtiers en crédit sélectionnés, avec des offres préférentielles. Rendez-vous sans engagement."/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
@@ -444,7 +448,7 @@
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
-        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'npeycru@euodia.fr')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Nicolas Peycru', 'Conseiller en Gestion de Patrimoine', 'npeycru@euodia.fr', true)">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -535,7 +539,7 @@
             <li>3 RDVs offerts sans engagement</li>
           </ul>
         </div>
-        <button class="btn-rdv" onclick="openModal('Charles Sitbon', 'Conseiller en Gestion de Patrimoine', 'csitbon@euodia.fr')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Charles Sitbon', 'Conseiller en Gestion de Patrimoine', 'csitbon@euodia.fr', true)">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -604,7 +608,7 @@
           <span class="pro-tag">Prêt professionnel</span>
           <span class="pro-tag">Immobilier neuf</span>
         </div>
-        <button class="btn-rdv" onclick="openModal('Anne-Claire Duval', 'Courtière en Crédits Immobiliers', 'anneclaire.duval@artemiscourtage.com')">Prendre rendez-vous</button>
+        <button class="btn-rdv" onclick="openModal('Anne-Claire Duval', 'Courtière en Crédits Immobiliers', 'anneclaire.duval@artemiscourtage.com', false)">Prendre rendez-vous</button>
       </div>
     </div>
 
@@ -621,6 +625,7 @@
       <input type="hidden" id="rdvProNom" name="pro_nom"/>
       <input type="hidden" id="rdvProTitre" name="pro_titre"/>
       <input type="hidden" id="rdvProEmail" name="pro_email"/>
+      <input type="hidden" id="rdvProOffre" name="pro_offre"/>
       <div class="form-row">
         <div class="form-group">
           <label>Prénom *</label>
@@ -914,14 +919,13 @@ function toggleBio(toggle) {
 }
 
 /* ── MODAL RDV ───────────────────────────────────────── */
-function openModal(nom, titre, email) {
+function openModal(nom, titre, email, hasOffre) {
   document.getElementById('modalProName').textContent = 'avec ' + nom;
-  document.getElementById('rdvProNom').value = nom;
-  document.getElementById('rdvProTitre').value = titre;
-  document.getElementById('rdvProEmail').value = email || '';
   document.getElementById('rdvForm').reset();
   document.getElementById('rdvProNom').value = nom;
   document.getElementById('rdvProTitre').value = titre;
+  document.getElementById('rdvProEmail').value = email || '';
+  document.getElementById('rdvProOffre').value = hasOffre ? '1' : '';
   hideMsg('rdvMsg');
   // Ajouter badge parrain si présent
   var parrain = getParrainFromUrl();
@@ -989,9 +993,14 @@ Votre demande a été transmise directement au conseiller, qui vous recontactera
 Pour rappel, ce rendez-vous est sans engagement et ne vous sera pas facturé.
 
 Situation décrite :
-"${situation}"
+"${situation}"`;
+
+  // Ligne "offres exclusives" ajoutée uniquement pour les conseillers ayant une offre via Courtalian
+  if (d.pro_offre) {
+    msgClient += `
 
 En attendant, n'hésitez pas à consulter les offres exclusives que ${d.pro_nom} propose via Courtalian — elles s'appliqueront automatiquement dès votre premier rendez-vous.`;
+  }
 
   var paramsClient = {
     to_email: d.email,
